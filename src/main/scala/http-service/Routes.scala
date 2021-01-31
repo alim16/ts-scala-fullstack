@@ -12,16 +12,19 @@ import mo.example.database.Database
 import io.circe.generic.auto._
 import org.http4s.circe.CirceEntityCodec._
 
-
 object Routes {
-    val dsl = Http4sDsl[Task]
-    import dsl._
+  val dsl = Http4sDsl[Task]
+  import dsl._
 
-    def helloWorldsService(DAO:Database.Service) = HttpRoutes
-        .of[Task] {
-            case GET -> Root / "hello" => Ok("Hello there")
-            case GET -> Root / "people" => DAO.getPeople().foldM(_ => NotFound(), Ok(_))
-            case GET -> Root / "hobbies" => DAO.getHobbies().foldM(_ => NotFound(), Ok(_))
-            case GET -> Root / "something" => Ok("something else")
-        }.orNotFound
+  def helloWorldsService(DAO: Database.Service) =
+    HttpRoutes
+      .of[Task] {
+        case GET -> Root / "hello" => Ok("Hello there")
+        case GET -> Root / "people" =>
+          DAO.getPeople().foldM(_ => NotFound(), Ok(_))
+        case GET -> Root / "hobbies" =>
+          DAO.getHobbies().foldM(_ => NotFound(), Ok(_))
+        case GET -> Root / "something" => Ok("something else")
+      }
+      .orNotFound
 }

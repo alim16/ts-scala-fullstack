@@ -9,20 +9,16 @@ import zio.clock.Clock
 import zio.blocking.Blocking
 
 object Main extends zio.App {
- 
-   def run(args: List[String]) =  appLogic.provideLayer(prepareEnvironment).forever //.exitCode
-  val appLogic = 
+  def run(args: List[String]) =
+    appLogic.provideLayer(prepareEnvironment).exitCode //.forever
+  val appLogic =
     for {
-      _ <- putStrLn("hello")
-
+      _           <- putStrLn("starting server on localhost:8080...")
       serverFiber <- HttpServer.startHttpServer
-      _ <- putStrLn("server is running on localhost:8080")
+      _           <- putStrLn("server is running on localhost:8080")
       //the next line kills the main fiber after 30s which kills the child server fiber
       //_ <- ZIO.sleep(30.seconds) *> putStrLn("30 seconds over: shutting down server...")
     } yield ()
 
-
-  private val prepareEnvironment =Clock.live ++ Console.live ++  ( Database.mockDB >>>  HttpServer.live)
-  
+  private val prepareEnvironment = Clock.live ++ Console.live ++ (Database.mockDB >>> HttpServer.live)
 }
-

@@ -17,10 +17,12 @@ package object server {
   object HttpServer {
     trait Service {
       //TODO:not sure if HttpServer dependency is required
-      def startHttpServer():ZManaged[ HttpServer , Nothing, Server] 
+      def startHttpServer(): ZManaged[HttpServer, Nothing, Server]
     }
 
-    private def startHttp4Server(DAO:Database.Service): ZManaged[Any, Throwable, Server] =
+    private def startHttp4Server(
+        DAO: Database.Service
+    ): ZManaged[Any, Throwable, Server] =
       ZIO.runtime[Any].toManaged_.flatMap { implicit runtime =>
         BlazeServerBuilder[Task](runtime.platform.executor.asEC)
           .bindHttp(8080, "localhost")
@@ -28,17 +30,15 @@ package object server {
           .resource
           .toManagedZIO
       }
-  val live : ZLayer[Database,Nothing,HttpServer]  = 
-      ZLayer.fromService{db: Database.Service =>
+    val live: ZLayer[Database, Nothing, HttpServer] =
+      ZLayer.fromService { db: Database.Service =>
         new Service {
-        
-        override def startHttpServer():ZManaged[Any, Nothing, Server] = 
-        startHttp4Server(db).orDie
-      }
+          override def startHttpServer(): ZManaged[Any, Nothing, Server] =
+            startHttp4Server(db).orDie
+        }
       }
 
-
-    def startHttpServer:  URIO[HttpServer, Server] = ZIO.accessM(_.get.startHttpServer.useForever)
+    def startHttpServer: URIO[HttpServer, Server] =
+      ZIO.accessM(_.get.startHttpServer.fork.useForever)
   }
-
 }

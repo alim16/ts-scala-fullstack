@@ -22,11 +22,11 @@ lazy val rootProject = project
       "org.http4s" %% "http4s-blaze-server" % http4sVersion,
       "org.http4s" %% "http4s-dsl"          % http4sVersion,
       "dev.zio"    %% "zio-interop-cats"    % "2.2.0.1", //TODO: change to variable
-      "io.circe" %% "circe-generic"         % circeVersion,
-      "org.http4s" %% "http4s-circe"        % http4sVersion,
+      "io.circe"   %% "circe-generic"       % circeVersion,
+      "org.http4s" %% "http4s-circe"        % http4sVersion
     )
   )
- 
+
 // scalacOptions ++= Seq(
 //   "-deprecation",
 //   "-encoding",
