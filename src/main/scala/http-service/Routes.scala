@@ -16,7 +16,7 @@ object Routes {
   val dsl = Http4sDsl[Task]
   import dsl._
 
-  def helloWorldsService(DAO: Database.Service) =
+  def combinedRoutesService(DAO: Database.Service) =
     HttpRoutes
       .of[Task] {
         case GET -> Root / "hello" => Ok("Hello there")

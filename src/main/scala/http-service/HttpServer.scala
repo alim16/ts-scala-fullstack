@@ -26,7 +26,7 @@ package object server {
       ZIO.runtime[Any].toManaged_.flatMap { implicit runtime =>
         BlazeServerBuilder[Task](runtime.platform.executor.asEC)
           .bindHttp(8080, "localhost")
-          .withHttpApp(Routes.helloWorldsService(DAO))
+          .withHttpApp(Routes.combinedRoutesService(DAO))
           .resource
           .toManagedZIO
       }
