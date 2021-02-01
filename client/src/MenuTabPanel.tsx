@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ExternalDataDisplay from './ExternalDataDisplay';
+import InternalDataDisplay from './InternalDataDisplay';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
- const NavTabs = () => {
+const NavTabs = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -87,10 +88,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <h1> Page Two </h1>
+        <InternalDataDisplay />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ExternalDataDisplay/>
+        <ExternalDataDisplay />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Page Three

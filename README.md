@@ -11,5 +11,5 @@ Server:
  - using HTTP4s and ZIO
 
 Client:
- - using (TODO)
+ - using Material-ui, React (to be added)
  - created using create-react-app

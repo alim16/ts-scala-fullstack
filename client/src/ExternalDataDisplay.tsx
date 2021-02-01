@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useEffect, useState } from "react";
+import API from './utils/API'
 
 
 const useStyles = makeStyles({
@@ -18,13 +19,12 @@ const useStyles = makeStyles({
     },
 });
 
- const ExternalDataDisplay = () => {
+const ExternalDataDisplay = () => {
 
     const [data, setData] = useState<any[]>([]);
     useEffect(() => {
-        fetch("https://finalspaceapi.com/api/v0/character/?limit=12")
-            .then((res) => res.json())
-            .then((data) => setData(data));
+        API.getFinalSpaceCharacters()
+        .then((data) => setData(data))
     }, []);
 
     const classes = useStyles();

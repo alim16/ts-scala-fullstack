@@ -3,6 +3,7 @@ package mo.example.http
 import zio._
 import zio.interop.catz._
 import zio.interop.catz.implicits._
+import org.http4s.server.middleware._
 
 import org.http4s.server._
 //import org.http4s.server.blaze._
@@ -26,7 +27,7 @@ package object server {
       ZIO.runtime[Any].toManaged_.flatMap { implicit runtime =>
         BlazeServerBuilder[Task](runtime.platform.executor.asEC)
           .bindHttp(8080, "localhost")
-          .withHttpApp(Routes.combinedRoutesService(DAO))
+          .withHttpApp(CORS(Routes.combinedRoutesService(DAO)))
           .resource
           .toManagedZIO
       }
