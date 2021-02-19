@@ -22,8 +22,8 @@ object Routes {
         case GET -> Root / "hello" => Ok("Hello there")
         case GET -> Root / "people" =>
           DAO.getPeople().foldM(_ => NotFound(), Ok(_))
-        case GET -> Root / "hobbies" =>
-          DAO.getHobbies().foldM(_ => NotFound(), Ok(_))
+        // case GET -> Root / "hobbies" =>
+        //   DAO.getHobbies().foldM(_ => NotFound(), Ok(_)) //TODO: re-enable
         case GET -> Root / "something" => Ok("something else")
       }
       .orNotFound

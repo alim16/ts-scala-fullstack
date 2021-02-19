@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    container_name: pg_db
+    restart: always
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test
+    ports:
+    - 54320:5432
+
+  db_test:
+    image: postgres
+    container_name: pg_test_db
+    restart: always
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test
+    ports:
+    - 54321:5432

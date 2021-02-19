@@ -26,7 +26,7 @@ package object server {
     ): ZManaged[Any, Throwable, Server] =
       ZIO.runtime[Any].toManaged_.flatMap { implicit runtime =>
         BlazeServerBuilder[Task](runtime.platform.executor.asEC)
-          .bindHttp(8080, "localhost")
+          .bindHttp(8080, "localhost") //TODO: get values from config
           .withHttpApp(CORS(Routes.combinedRoutesService(DAO)))
           .resource
           .toManagedZIO
