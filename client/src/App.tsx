@@ -1,6 +1,6 @@
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import TabPanel from "./MenuTabPanel";
+import NavTabs from "./Components/Menu/MenuTabPanel";
 
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
         <Typography color="textPrimary" gutterBottom variant="h2" align="center">
           Example Frontend
         </Typography>
-        <TabPanel />
+        <NavTabs />
 
       </Container>
     </div>

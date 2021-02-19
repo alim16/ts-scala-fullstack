@@ -5,8 +5,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import ExternalDataDisplay from './ExternalDataDisplay';
-import InternalDataDisplay from './InternalDataDisplay';
+import ExternalDataDisplay from '../Tabs/ExternalDataDisplay';
+import InternalDataDisplay from '../Tabs/InternalDataDisplay';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -27,7 +27,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
