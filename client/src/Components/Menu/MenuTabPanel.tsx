@@ -1,21 +1,20 @@
-import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import ExternalDataDisplay from '../Tabs/ExternalDataDisplay';
-import InternalDataDisplay from '../Tabs/InternalDataDisplay';
+import React from 'react'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Box from '@material-ui/core/Box'
+import ExternalDataDisplay from '../Tabs/ExternalDataDisplay'
+import InternalDataDisplay from '../Tabs/InternalDataDisplay'
 
 interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
+  children?: React.ReactNode
+  index: any
+  value: any
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -31,19 +30,19 @@ function TabPanel(props: TabPanelProps) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 function a11yProps(index: any) {
   return {
     id: `nav-tab-${index}`,
     'aria-controls': `nav-tabpanel-${index}`,
-  };
+  }
 }
 
 interface LinkTabProps {
-  label?: string;
-  href?: string;
+  label?: string
+  href?: string
 }
 
 function LinkTab(props: LinkTabProps) {
@@ -51,11 +50,11 @@ function LinkTab(props: LinkTabProps) {
     <Tab
       component="a"
       onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        event.preventDefault();
+        event.preventDefault()
       }}
       {...props}
     />
-  );
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -63,27 +62,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
-}));
+}))
 
 const NavTabs = () => {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const classes = useStyles()
+  const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="transparent">
         <Tabs
           variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Internal data" href="/drafts" {...a11yProps(0)} />
-          <LinkTab label="External data" href="/trash" {...a11yProps(1)} />
+          <LinkTab label="Internal data"  {...a11yProps(0)} />
+          <LinkTab label="External data"  {...a11yProps(1)} />
           <LinkTab label="Other" href="/spam" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
@@ -97,7 +96,7 @@ const NavTabs = () => {
         Page Three
       </TabPanel>
     </div>
-  );
+  )
 }
 
 export default NavTabs

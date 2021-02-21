@@ -1,10 +1,10 @@
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { useEffect, useState } from "react";
-import API from "../../utils/API";
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import { useEffect, useState } from "react"
+import API from "../../utils/API"
 
-import { createServer, Model } from "miragejs"
-import { makeStyles } from "@material-ui/core/styles";
+//import { createServer, Model } from "miragejs"
+import { makeStyles } from "@material-ui/core/styles"
 
          ///////
 // let server = createServer()
@@ -16,18 +16,18 @@ const useStyles = makeStyles({
         backgroundColor: "#fafafa",
         marginBottom: 20
     },
-});
+})
 
 const InternalDataDisplay = () => {
 
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<any[]>([])
     useEffect(() => {
         API.getPeopleList()
             .then((data) => setData(data))
-    }, []);
+    }, [])
 
     
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <div>

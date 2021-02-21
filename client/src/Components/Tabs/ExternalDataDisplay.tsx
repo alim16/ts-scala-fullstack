@@ -1,12 +1,11 @@
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import React from "react";
-import { useEffect, useState } from "react";
+import Box from "@material-ui/core/Box"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import CardMedia from "@material-ui/core/CardMedia"
+import Grid from "@material-ui/core/Grid"
+import { makeStyles } from "@material-ui/core/styles"
+import React from "react"
+import { useEffect, useState } from "react"
 import API from '../../utils/API'
 
 
@@ -19,17 +18,17 @@ const useStyles = makeStyles({
     media: {
         height: 300,
     },
-});
+})
 
 const ExternalDataDisplay = () => {
 
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<any[]>([])
     useEffect(() => {
         API.getFinalSpaceCharacters()
             .then((data) => setData(data))
-    }, []);
+    }, [])
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <Grid container spacing={3}>
