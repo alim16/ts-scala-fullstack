@@ -6,6 +6,7 @@ import Card from "@material-ui/core/Card"
 import API from "../../utils/API"
 import { config } from "../../utils/constants"
 import { AuthContext } from "../../App"
+import { loginStyles } from "./loginStyles"
 
 interface IUserState {
     email: string,
@@ -14,31 +15,14 @@ interface IUserState {
     errorMessage: string | null
 }
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-      justifyContent: 'center',
-      display: 'flex',
-      alignItems:'center',
-      height: '50vh'
-    },
-    form: {
-        width: '100%',
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    formError: {
-        color: '#FF0000'
-    },
-}))
+
 
 
 
 export const Login = () => {
     const { dispatch } = React.useContext(AuthContext)
     
-    const classes = useStyles()
+    const classes = loginStyles()
     const initialState:IUserState = {
         email: "",
         password: "",
@@ -97,7 +81,7 @@ export const Login = () => {
         <div className={classes.container}>
             <Card>
                 <div className="container">
-                    <form onSubmit={handleFormSubmit}>
+                    <form className={classes.form2} onSubmit={handleFormSubmit}>
                         <Typography component="h1" variant="h5">Login </Typography>
 
                         <label htmlFor="email">
@@ -129,9 +113,7 @@ export const Login = () => {
                         <button className={classes.submit} disabled={data.isSubmitting}>
                             {data.isSubmitting ? (
                                 "Loading..."
-                            ) : (
-                                    "Login"
-                                )}
+                            ) : ("Login")}
                         </button>
                     </form>
                 </div>

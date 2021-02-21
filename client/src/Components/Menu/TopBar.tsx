@@ -11,36 +11,42 @@ import React from "react"
 import { AuthContext } from "../../App"
 
 const useStyles = makeStyles((theme: Theme) => ({
-   menuButton: {
+    menuButton: {
 
-   },
-   title: {
+    },
+    title: {
 
-   },
-   bar: {
-    marginBottom:20
-   }
-  }));
+    },
+    bar: {
+        marginBottom: 20
+    },
+    barBox: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexGrow: 1
+    }
+}));
 
 const TopBar = () => {
     const classes = useStyles();
-    const {state, dispatch} = React.useContext(AuthContext)
+    const { state, dispatch } = React.useContext(AuthContext)
     return (
 
         <AppBar position="static" className={classes.bar}>
             <Toolbar>
-            <Box display='flex' justifyContent={'space-between'} flexGrow={1}   >
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <Menu />
-                </IconButton>
-                <Typography variant="h2" className={classes.title}>
-                    Something
+                <Box className={classes.barBox}  >
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <Menu />
+                    </IconButton>
+                    <Typography variant="h2" className={classes.title}>
+                        Something
                 </Typography>
-                {state.isAuthenticated ? <Button onClick={() => dispatch({
-                    type: "LOGOUT"})} color="inherit">Logout</Button> : <div> </div>}
-            </Box>      
+                    {state.isAuthenticated ? <Button onClick={() => dispatch({ type: "LOGOUT" })} color="inherit">
+                        Logout
+                </Button> : <div> </div>}
+                </Box>
             </Toolbar>
         </AppBar>
     )
 }
-export default  TopBar
+export default TopBar
