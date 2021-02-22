@@ -2,11 +2,13 @@
 import { Container, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import Alert from '@material-ui/lab/Alert'
-import Card from "@material-ui/core/Card"
 import API from "../../utils/API"
 import { config } from "../../utils/constants"
 import { AuthContext } from "../../App"
 import { loginStyles } from "./loginStyles"
+import Grid from "@material-ui/core/Grid"
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField"
 
 interface IUserState {
     email: string,
@@ -15,15 +17,11 @@ interface IUserState {
     errorMessage: string | null
 }
 
-
-
-
-
 export const Login = () => {
     const { dispatch } = React.useContext(AuthContext)
-    
+
     const classes = loginStyles()
-    const initialState:IUserState = {
+    const initialState: IUserState = {
         email: "",
         password: "",
         isSubmitting: false,
@@ -36,12 +34,12 @@ export const Login = () => {
             [event.target.name]: event.target.value
         })
     }
-    const handleFormSubmit = (event:any) => {
+    const handleFormSubmit = (event: any) => {
         event.preventDefault()
         setData({
-          ...data,
-          isSubmitting: true,
-          errorMessage: null
+            ...data,
+            isSubmitting: true,
+            errorMessage: null
         })
 
         //`${config.SERVER_BASE_URL}/login`
@@ -60,7 +58,7 @@ export const Login = () => {
                 //     return res.json()
                 // }
                 // throw res
-                return  {user:'admin', token:'1234'}
+                return { user: 'admin', token: '1234' } //TODO: hardcoded, fix when auth is working
             })
             .then(resJson => {
                 dispatch({
@@ -77,48 +75,53 @@ export const Login = () => {
             })
     }
     return (
+        <Container className={classes.container} maxWidth="xs">
+            <form onSubmit={handleFormSubmit}>
+                <Typography component="h1" variant="h5">Login </Typography>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField fullWidth label="Email"
+                                    name="email" size="small"
+                                    variant="outlined"
+                                    id="email"
+                                    value={data.email}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
 
-        <div className={classes.container}>
-            <Card>
-                <div className="container">
-                    <form className={classes.form2} onSubmit={handleFormSubmit}>
-                        <Typography component="h1" variant="h5">Login </Typography>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Password"
+                                    name="password"
+                                    size="small"
+                                    type="password"
+                                    variant="outlined"
+                                    value={data.password}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
 
-                        <label htmlFor="email">
-                            Email Address
-                            <input
-                                type="text"
-                                value={data.email}
-                                onChange={handleInputChange}
-                                name="email"
-                                id="email"
-                            />
-                        </label>
+                    {data.errorMessage && (
+                        <Alert severity="error">{data.errorMessage}</Alert>
+                    )}
 
-                        <label htmlFor="password">
-                            Password
-                            <input
-                                type="password"
-                                value={data.password}
-                                onChange={handleInputChange}
-                                name="password"
-                                id="password"
-                            />
-                        </label>
+                    <Grid item xs={12}>
+                        <Button color="secondary" fullWidth type="submit" variant="contained">
+                            {data.isSubmitting ? ("Loading..." ) : ("Login")}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} justify="center">
+                <Alert severity="info">No registration option atm</Alert>
+                </Grid>
+                </Grid>
 
-                        {data.errorMessage && (
-                            <Alert severity="error">{data.errorMessage}</Alert>
-                        )}
-
-                        <button className={classes.submit} disabled={data.isSubmitting}>
-                            {data.isSubmitting ? (
-                                "Loading..."
-                            ) : ("Login")}
-                        </button>
-                    </form>
-                </div>
-           </Card>
-        </div>
+            </form>
+        </Container>
 
     )
 }
