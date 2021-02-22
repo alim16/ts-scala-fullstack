@@ -1,5 +1,3 @@
-import { cyan } from "@material-ui/core/colors"
-
 describe('login scenarios', () =>{
     beforeEach(() => {
         cy.visit('localhost:3000')
@@ -12,3 +10,5 @@ describe('login scenarios', () =>{
         
     })
 })
+
+export {}
