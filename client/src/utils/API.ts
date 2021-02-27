@@ -13,6 +13,17 @@ export default {
         return await res.json();
     },
 
+    loginFake: async (data:any) => {
+        const res = await fetch(`https://finalspaceapi.com/api/v0/character/?limit=12`, {
+            method: "get", //TODO: change back to a get
+            headers: {
+                "Content-Type": "application/json"
+            },
+            //body: JSON.stringify({email: data.email,password: data.password}) //TODO: uncomment
+        })
+        return await res.json()
+    }
+
     // Login: () => {
     //     const { dispatch } = React.useContext(AuthContext);
     //     const initialState = {

@@ -93,7 +93,7 @@ const NavTabs = () => {
         <ExternalDataDisplay />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Page Three
+        Third tab
       </TabPanel>
     </div>
   )

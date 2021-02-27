@@ -5,54 +5,23 @@ import Alert from '@material-ui/lab/Alert'
 import API from "../../utils/API"
 import { config } from "../../utils/constants"
 import { AuthContext } from "../../App"
-import { loginStyles } from "./loginStyles"
+import { login2Styles, loginStyles } from "./loginStyles"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
+import FormControl from '@material-ui/core/FormControl'
+import { useForm, Controller } from 'react-hook-form'
 
-interface IUserState {
-    email: string,
-    password: string,
-    isSubmitting: boolean,
-    errorMessage: string | null
-}
 
 export const Login = () => {
+    const classes = login2Styles()
     const { dispatch } = React.useContext(AuthContext)
 
-    const classes = loginStyles()
-    const initialState: IUserState = {
-        email: "",
-        password: "",
-        isSubmitting: false,
-        errorMessage: null
-    }
-    const [data, setData] = React.useState(initialState)
-    const handleInputChange = (event: any) => {
-        setData({
-            ...data,
-            [event.target.name]: event.target.value
-        })
-    }
-    const handleFormSubmit = (event: any) => {
-        event.preventDefault()
-        setData({
-            ...data,
-            isSubmitting: true,
-            errorMessage: null
-        })
 
-        //`${config.SERVER_BASE_URL}/login`
-        fetch(`https://finalspaceapi.com/api/v0/character/?limit=12`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username: data.email,
-                password: data.password
-            })
-        })
+    const { control, handleSubmit, watch, errors: fieldsErrors } = useForm()
+    const onSubmit = (data: any) => {
+        console.log('submitted', JSON.stringify(data))
+        API.loginFake(data)
             .then(res => {
                 // if (res.ok) {
                 //     return res.json()
@@ -66,62 +35,79 @@ export const Login = () => {
                     payload: resJson
                 })
             })
-            .catch(error => {
-                setData({
-                    ...data,
-                    isSubmitting: false,
-                    errorMessage: error.message || error.statusText
-                })
-            })
+        .catch(error => {
+           console.log('problem?')
+        })
     }
-    return (
-        <Container className={classes.container} maxWidth="xs">
-            <form onSubmit={handleFormSubmit}>
-                <Typography component="h1" variant="h5">Login </Typography>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField fullWidth label="Email"
-                                    name="email" size="small"
-                                    variant="outlined"
-                                    id="email"
-                                    value={data.email}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
 
-                            <Grid item xs={12}>
+    return (
+        <Grid
+            container component="main"
+            className={classes.root}
+            alignItems="center"
+            justify="center"
+            direction="column"
+        >
+            <Grid item xs={12}>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+                    <Typography component="h1" variant="h5">Login </Typography>
+                    <FormControl fullWidth variant="outlined" className={classes.control} >
+                        <Controller control={control} name="email"
+                            as={
+                                <TextField fullWidth
+                                    label="Email"
+                                    name="email" size="small"
+                                    helperText={fieldsErrors.email ? fieldsErrors.email.message : null}
+                                    variant="outlined"
+                                    error={fieldsErrors.email}
+                                    id="email" />
+                            }
+                            defaultValue=""
+                            rules={{
+                                required: 'Required',
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: 'invalid email address'
+                                }
+                            }}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth variant="outlined" className={classes.control} >
+                        <Controller name="password"
+                            as={
                                 <TextField
                                     fullWidth
                                     label="Password"
-                                    name="password"
+                                    id="password"
                                     size="small"
                                     type="password"
                                     variant="outlined"
-                                    value={data.password}
-                                    onChange={handleInputChange}
+                                    helperText={fieldsErrors.password ? fieldsErrors.password.message : null}
+                                    error={fieldsErrors.password}
                                 />
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                            }
+                            control={control}
+                            defaultValue=""
+                            rules={{
+                                required: true
+                            }}
+                        />
 
-                    {data.errorMessage && (
-                        <Alert severity="error">{data.errorMessage}</Alert>
-                    )}
-
-                    <Grid item xs={12}>
-                        <Button color="secondary" fullWidth type="submit" variant="contained">
-                            {data.isSubmitting ? ("Loading..." ) : ("Login")}
+                    </FormControl>
+                    <Grid item container justify="center">
+                        <Button color="secondary" fullWidth type="submit" variant="contained" className={classes.button}>
+                            Login
+                        </Button>
+                        <Button disabled={true} color="secondary" fullWidth type="submit" variant="contained" className={classes.button}>
+                            Register
                         </Button>
                     </Grid>
-                    <Grid item xs={12} justify="center">
-                <Alert severity="info">No registration option atm</Alert>
-                </Grid>
-                </Grid>
-
-            </form>
-        </Container>
+                    <Grid item xs={12} >
+                        <Alert severity="info">No registration option atm</Alert>
+                    </Grid>
+                </form>
+            </Grid>
+        </Grid>
 
     )
 }
