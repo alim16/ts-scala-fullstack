@@ -3,9 +3,8 @@ import { Container, makeStyles, Typography } from "@material-ui/core"
 import React from "react"
 import Alert from '@material-ui/lab/Alert'
 import API from "../../utils/API"
-import { config } from "../../utils/constants"
 import { AuthContext } from "../../App"
-import { login2Styles, loginStyles } from "./loginStyles"
+import { loginStyles } from "./loginStyles"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
@@ -14,7 +13,7 @@ import { useForm, Controller } from 'react-hook-form'
 
 
 export const Login = () => {
-    const classes = login2Styles()
+    const classes = loginStyles()
     const { dispatch } = React.useContext(AuthContext)
 
 
@@ -22,22 +21,15 @@ export const Login = () => {
     const onSubmit = (data: any) => {
         console.log('submitted', JSON.stringify(data))
         API.loginFake(data)
-            .then(res => {
-                // if (res.ok) {
-                //     return res.json()
-                // }
-                // throw res
-                return { user: 'admin', token: '1234' } //TODO: hardcoded, fix when auth is working
-            })
             .then(resJson => {
                 dispatch({
                     type: "LOGIN",
                     payload: resJson
                 })
             })
-        .catch(error => {
-           console.log('problem?')
-        })
+            .catch(error => {
+                console.log('problem?', error)
+            })
     }
 
     return (

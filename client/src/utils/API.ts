@@ -13,57 +13,19 @@ export default {
         return await res.json();
     },
 
-    loginFake: async (data:any) => {
-        const res = await fetch(`https://finalspaceapi.com/api/v0/character/?limit=12`, {
-            method: "get", //TODO: change back to a get
+    loginFake: async (data: any) => {
+        const res = await fetch(`${config.SERVER_BASE_URL}/login`, {
+            method: "POST", //TODO: change back to a get
             headers: {
                 "Content-Type": "application/json"
             },
-            //body: JSON.stringify({email: data.email,password: data.password}) //TODO: uncomment
+            body: JSON.stringify({ email: data.email, password: data.password })
         })
-        return await res.json()
+        if (!res.ok) {
+            throw new Error(res.status.toString());
+        }
+        return res.json();
+
     }
-
-    // Login: () => {
-    //     const { dispatch } = React.useContext(AuthContext);
-    //     const initialState = {
-    //         email: "",
-    //         password: "",
-    //         isSubmitting: false,
-    //         errorMessage: null
-    //       };
-    //     const [data, setData] = React.useState(initialState);
-
-    //     fetch(`${config.SERVER_BASE_URL}/login`, {
-    //         method: "post",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             username: data.email,
-    //             password: data.password
-    //         })
-    //     })
-    //         .then(res => {
-    //             // if (res.ok) {
-    //             //     return res.json();
-    //             // }
-    //             // throw res;
-    //             return JSON.stringify( {user:'admin', token:'1234'})
-    //         })
-    //         .then(resJson => {
-    //             dispatch({
-    //                 type: "LOGIN",
-    //                 payload: resJson
-    //             })
-    //         })
-    //         .catch(error => {
-    //             setData({
-    //                 ...data,
-    //                 isSubmitting: false,
-    //                 errorMessage: error.message || error.statusText
-    //             });
-    //         });
-    // }
 
 }

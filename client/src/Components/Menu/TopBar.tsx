@@ -73,7 +73,7 @@ const TopBar = () => {
                         </Drawer>
                     </IconButton>
                     <Typography variant="h2" className={classes.title}>
-                        Something
+                        Something 🙌
                 </Typography>
                     {state.isAuthenticated ? <Button onClick={() => dispatch({ type: "LOGOUT" })} color="inherit">
                         Logout
