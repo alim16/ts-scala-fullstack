@@ -25,5 +25,5 @@ object Main extends zio.App {
       //_ <- ZIO.sleep(30.seconds) *> putStrLn("30 seconds over: shutting down server...")
     } yield ()
 
-  private val prepareEnvironment = Clock.live ++ Console.live  ++ ( Configuration.live >>> DbTransactor.live >>> Database.mockDB >>> HttpServer.live)
+  private val prepareEnvironment = Clock.live ++ Console.live  ++ ( Configuration.live >>> DbTransactor.live >>> Database.live >>> HttpServer.live)
 }

@@ -34,7 +34,7 @@ final case class PersonPersistanceService(tnx: Transactor[Task]) {
       .transact(tnx)
       .foldM(
         err =>  Task.fail(err), //Task.succeed(List( Person("name1", "name1@gmail.com", "/img1"))),
-        maybePerson => Task.succeed(List(maybePerson.get)) //TODO: change to return something
+        maybePerson =>  Task.succeed(List(maybePerson.getOrElse(Person(0,"no person","","")))) //TODO: change to return something
       )
 }
 
@@ -42,7 +42,7 @@ object PersonPersistenceService {
   object SQL {
     def createUsersTable: doobie.Update0 =
       sql"""
-        CREATE TABLE USERS (
+        CREATE TABLE IF NOT EXISTS users (
           id   Int,
           name VARCHAR NOT NULL,
           email VARCHAR NOT NULL,
@@ -51,12 +51,12 @@ object PersonPersistenceService {
         """.update
 
     def getPeople(): Query0[Person] =
-      sql"""SELECT * FROM USERS""".query[Person] //TODO: fix so it can return a list/stream
+      sql"""SELECT * FROM users""".query[Person] //TODO: fix so it can return a list/stream
 
     def create(user: Person): Update0 =
       sql"""
-        INSERT INTO USERS (
-          id, name) VALUES (${user.id},${user.name},${user.email},${user.imageUrl}
+        INSERT INTO users (
+          id, name, email, imageUrl) VALUES (${user.id},${user.name},${user.email},${user.imageUrl}
         )
         """.update
   }

@@ -12,7 +12,7 @@ import zio.blocking.Blocking
 import zio.interop.catz._
 
 package object dbTransactor {
-  type DbTransactor = Has[ DbTransactor.Service]
+  type DbTransactor = Has[DbTransactor.Service]
 
   object DbTransactor {
     trait Service {
