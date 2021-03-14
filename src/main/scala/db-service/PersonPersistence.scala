@@ -18,7 +18,7 @@ final case class PersonPersistanceService(tnx: Transactor[Task]) {
 
 
   def addFakeUser() = create(Person(1,"name11", "name11@gmail.com", "/some/url")) *> 
-    Task.succeed(())
+    Task.succeed(()) //TODO: added for testing, remove later
 
   def create(user: Person): Task[Person] =
     SQL
@@ -30,11 +30,11 @@ final case class PersonPersistanceService(tnx: Transactor[Task]) {
   def getPeople(): Task[List[Person]] =
     SQL
       .getPeople()
-      .option
+      .to[List]
       .transact(tnx)
       .foldM(
-        err =>  Task.fail(err), //Task.succeed(List( Person("name1", "name1@gmail.com", "/img1"))),
-        maybePerson =>  Task.succeed(List(maybePerson.getOrElse(Person(0,"no person","","")))) //TODO: change to return something
+        err =>  Task.fail(err),
+        peopleList =>  Task.succeed(peopleList.take(5)) 
       )
 }
 
@@ -51,7 +51,7 @@ object PersonPersistenceService {
         """.update
 
     def getPeople(): Query0[Person] =
-      sql"""SELECT * FROM users""".query[Person] //TODO: fix so it can return a list/stream
+      sql"""SELECT * FROM users""".query[Person]
 
     def create(user: Person): Update0 =
       sql"""
@@ -60,11 +60,4 @@ object PersonPersistenceService {
         )
         """.update
   }
-
-  // def createUserTable: ZIO[Nothing, Throwable, Unit] =
-  //   for {
-  //     tnx <- ZIO.service[Transactor[Task]]
-  //     _ <- SQL.createUsersTable.run
-  //       .transact(tnx)
-  //   } yield ()
 }

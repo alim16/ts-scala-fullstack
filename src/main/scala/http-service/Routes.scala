@@ -25,7 +25,6 @@ object Routes {
         case GET -> Root / "hello" => Ok("Hello there")
         case GET -> Root / "people" =>
            DAO.getPeople().foldM(_ => NotFound(), Ok(_))
-        //TODO: change people query to return, error happens after first time because with 2 users it becomes a list or stream
         // case GET -> Root / "hobbies" =>
         //   DAO.getHobbies().foldM(_ => NotFound(), Ok(_)) //TODO: re-enable
         case GET -> Root / "something" => Ok("something else")
