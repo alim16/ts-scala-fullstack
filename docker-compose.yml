@@ -1,6 +1,15 @@
 version: '3.1'
 
 services:
+  frontend:
+    container_name: frontend
+    build: ./client
+    ports:
+        - "3000:8080"
+    labels:
+        NAME: "frontend"
+    # networks:
+    #     - app-network
 
   db:
     image: postgres
@@ -13,6 +22,10 @@ services:
     - 54320:5432
     volumes: 
     - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # networks:
+  #   app-network:
+  #       driver: bridge
 
   # db_test:
   #   image: postgres
