@@ -8,10 +8,10 @@ Requirements:
 
 Running it (all):
 **(you need to have docker installed for most of it to work)**
- * Start the server from root using `sbt run` (check localhost:8080/hello)
- * `docker-compose up` from root folder to start containers **front-end** and **database**
+ * Start the server from root directory using `sbt run` (check localhost:8080/hello)
+ * `docker-compose up` from root directory to start containers for **front-end** and the **database**
 
-**To run the front-end on it's own without docker**
+To run the front-end on it's own **(without docker)**
 * `yarn start` from client directory ( and check localhost:3000)
 
 
