@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab'
 import Box from '@material-ui/core/Box'
 import ExternalDataDisplay from '../Tabs/ExternalDataDisplay'
 import InternalDataDisplay from '../Tabs/InternalDataDisplay'
+import DatasetsDisplay from '../Tabs/DatasetsDisplay'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -81,19 +82,19 @@ const NavTabs = () => {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Internal data"  {...a11yProps(0)} />
-          <LinkTab label="External data"  {...a11yProps(1)} />
-          <LinkTab label="Other" href="/spam" {...a11yProps(2)} />
+          <LinkTab label="People"  {...a11yProps(0)} />
+          <LinkTab label="Datasets" href="/spam" {...a11yProps(1)} />
+          <LinkTab label="External data"  {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <InternalDataDisplay />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ExternalDataDisplay />
+        <DatasetsDisplay />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Third tab
+        <ExternalDataDisplay />
       </TabPanel>
     </div>
   )

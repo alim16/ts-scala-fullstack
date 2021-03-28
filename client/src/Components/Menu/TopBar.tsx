@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ListItems = () => { //TODO: improve this list
     const classes = useStyles()
     return (<List className={classes.list}>
-        {['Info', 'About Us'].map((text, index) => (
+        {['HowTo guide', 'Contact Us'].map((text, index) => (
             <ListItem button key={text}>
-                <ListItemIcon> {text === "Info" ? <InfoIcon/> : <ContactMail/> } </ListItemIcon>
+                <ListItemIcon> {text === "HowTo guide" ? <InfoIcon/> : <ContactMail/> } </ListItemIcon>
                 <ListItemText primary={text} />
             </ListItem>
         ))}
@@ -73,7 +73,7 @@ const TopBar = () => {
                         </Drawer>
                     </IconButton>
                     <Typography variant="h2" className={classes.title}>
-                        Something 🙌
+                        DataGen POC🙌
                 </Typography>
                     {state.isAuthenticated ? <Button onClick={() => dispatch({ type: "LOGOUT" })} color="inherit">
                         Logout
