@@ -84,7 +84,7 @@ const NavTabs = () => {
         >
           <LinkTab label="People"  {...a11yProps(0)} />
           <LinkTab label="Datasets" href="/spam" {...a11yProps(1)} />
-          <LinkTab label="External data"  {...a11yProps(2)} />
+          <LinkTab label="Other"  {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>

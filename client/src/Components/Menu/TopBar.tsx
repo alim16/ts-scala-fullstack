@@ -17,6 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InfoIcon from '@material-ui/icons/Info'
 import ContactMail from '@material-ui/icons/ContactMail'
+import PersonIcon from '@material-ui/icons/Person'
 
 const useStyles = makeStyles((theme: Theme) => ({
     menuButton: {
@@ -73,10 +74,10 @@ const TopBar = () => {
                         </Drawer>
                     </IconButton>
                     <Typography variant="h2" className={classes.title}>
-                        DataGen POC🙌
+                        DataGen POC 🙌
                 </Typography>
                     {state.isAuthenticated ? <Button onClick={() => dispatch({ type: "LOGOUT" })} color="inherit">
-                        Logout
+                    <PersonIcon/> Logout
                 </Button> : <div> </div>}
                 </Box>
             </Toolbar>
